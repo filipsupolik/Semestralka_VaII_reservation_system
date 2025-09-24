@@ -1,0 +1,21 @@
+.navigation-bar {
+    width: 100%;
+}
+
+.page-navigation-elem {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    height: 64px;
+}
+
+.page-navigation-elem ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+
