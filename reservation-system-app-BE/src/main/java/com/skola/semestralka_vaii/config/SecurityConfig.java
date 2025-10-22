@@ -29,9 +29,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.PUT, "/login","/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login","/register").permitAll()
                         .anyRequest().authenticated()
-                );;
+                );
         return http.build();
     }
 }
