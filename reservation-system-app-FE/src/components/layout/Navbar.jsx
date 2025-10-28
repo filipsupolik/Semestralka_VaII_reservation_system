@@ -13,9 +13,12 @@ export default function Navbar() {
     <AppBar position="fixed" color="primary">
       <Toolbar>
         <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: 'flex', gap: 2 }}>
+        <Box sx={{ display: "flex", gap: 2 }}>
           <Button color="inherit" component={Link} to="/">
             Home
+          </Button>
+          <Button color="inherit" component={Link} to="/book-now">
+            Book Now
           </Button>
           {!isAuthenticated && (
             <Button color="inherit" component={Link} to="/login">
