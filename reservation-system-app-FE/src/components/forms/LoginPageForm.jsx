@@ -33,20 +33,7 @@ export default function LoginPageForm() {
   };
 
   return (
-    <Box
-      sx={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: theme.palette.background.default,
-        zIndex: 0,
-      }}
-    >
+    <Box>
       <Paper
         elevation={6}
         sx={{

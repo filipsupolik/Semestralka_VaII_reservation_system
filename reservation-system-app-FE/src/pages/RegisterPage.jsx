@@ -1,15 +1,15 @@
 import React from "react";
 import Navbar from "../components/layout/Navbar";
-import LoginPageForm from "../components/forms/LoginPageForm";
+import RegisterPageForm from "../components/forms/RegisterPageForm";
 import { themeOptions } from "../theme";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <div>
       <Navbar />
       <div
         style={{
-          height: "100vh", // 64px je výška Navbaru
+          minHeight: "calc(100vh - 64px)",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -17,7 +17,7 @@ export default function LoginPage() {
           width: "100vw",
         }}
       >
-        <LoginPageForm />
+        <RegisterPageForm />
       </div>
     </div>
   );

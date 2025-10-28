@@ -18,8 +18,8 @@ export const themeOptions: ThemeOptions = {
     },
     text: {
       primary: '#d4b28d',
-      secondary: 'rgba(84,70,55,0.7)',
-      disabled: 'rgba(71,85,94,0.5)',
+      secondary: 'd4b28d',
+      disabled: 'd4b28d',
     },
   },
 };
