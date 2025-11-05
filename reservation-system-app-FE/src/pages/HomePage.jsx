@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/layout/Navbar";
 import { themeOptions } from "../theme";
 
-export default function HomePage() {
+export default function HomePage({ setShowComponent }) {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ export default function HomePage() {
         width: "100vw",
       }}
     >
-      <Navbar />
+      <Navbar setShowComponent={setShowComponent} />
       <div
         style={{
           position: "relative",

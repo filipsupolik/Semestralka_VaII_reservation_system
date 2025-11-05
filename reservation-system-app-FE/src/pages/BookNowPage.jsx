@@ -69,7 +69,15 @@ const facialServices = [
   },
 ];
 
-export default function BookNowPage() {
+export default function BookNowPage({
+  isAuthenticated,
+  isOwner,
+  themeOptions,
+}) {
+  // Pre vlastníka zobraz len jeho služby
+  if (isAuthenticated && isOwner) {
+    return <Navigate to="/owner-services" />;
+  }
   return (
     <div
       style={{
@@ -81,9 +89,19 @@ export default function BookNowPage() {
       <Navbar />
       <div style={{ maxWidth: 1200, margin: "0 auto", padding: "32px 0" }}>
         <div style={{ marginTop: 80 }}>
-          <ServiceScrollRow title="Massage" services={massageServices} />
+          <ServiceScrollRow
+            title="Massage"
+            services={massageServices}
+            isAuthenticated={isAuthenticated}
+            isOwner={isOwner}
+          />
         </div>
-        <ServiceScrollRow title="Facial Treatments" services={facialServices} />
+        <ServiceScrollRow
+          title="Facial Treatments"
+          services={facialServices}
+          isAuthenticated={isAuthenticated}
+          isOwner={isOwner}
+        />
       </div>
     </div>
   );

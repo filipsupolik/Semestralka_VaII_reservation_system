@@ -3,7 +3,7 @@ import Navbar from "../components/layout/Navbar";
 import LoginPageForm from "../components/forms/LoginPageForm";
 import { themeOptions } from "../theme";
 
-export default function LoginPage() {
+export default function LoginPage({ setShowComponent }) {
   return (
     <div>
       <Navbar />
@@ -17,7 +17,7 @@ export default function LoginPage() {
           width: "100vw",
         }}
       >
-        <LoginPageForm />
+        <LoginPageForm themeOptions={themeOptions} />
       </div>
     </div>
   );

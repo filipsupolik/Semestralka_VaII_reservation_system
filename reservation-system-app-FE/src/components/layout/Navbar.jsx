@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const isAuthenticated = false;
 
-export default function Navbar() {
+export default function Navbar({ setShowComponent }) {
   return (
     <AppBar position="fixed" color="primary">
       <Toolbar>
@@ -21,7 +21,12 @@ export default function Navbar() {
             Book Now
           </Button>
           {!isAuthenticated && (
-            <Button color="inherit" component={Link} to="/login">
+            <Button
+              color="inherit"
+              component={Link}
+              to="/login"
+              onClick={() => setShowComponent("login")}
+            >
               Prihlásiť sa
             </Button>
           )}
