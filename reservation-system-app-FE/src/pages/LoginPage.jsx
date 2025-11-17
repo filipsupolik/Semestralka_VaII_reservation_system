@@ -3,13 +3,13 @@ import Navbar from "../components/layout/Navbar";
 import LoginPageForm from "../components/forms/LoginPageForm";
 import { themeOptions } from "../theme";
 
-export default function LoginPage({ setShowComponent }) {
+export default function LoginPage({ onLogin, setShowComponent }) {
   return (
     <div>
-      <Navbar />
+      <Navbar setShowComponent={setShowComponent} />
       <div
         style={{
-          height: "100vh", // 64px je výška Navbaru
+          height: "100vh",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -17,7 +17,11 @@ export default function LoginPage({ setShowComponent }) {
           width: "100vw",
         }}
       >
-        <LoginPageForm themeOptions={themeOptions} />
+        <LoginPageForm
+          themeOptions={themeOptions}
+          onLogin={onLogin}
+          setShowComponent={setShowComponent}
+        />
       </div>
     </div>
   );

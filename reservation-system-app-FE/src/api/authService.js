@@ -1,7 +1,9 @@
+import api from "./axiosConfig";
+
 export const requestAuth = (method, url, data) => {
-  return axios({
+  return api({
     method,
-    url: url, 
+    url: url,
     data,
   });
 };

@@ -14,7 +14,12 @@ export default function Navbar({ setShowComponent }) {
       <Toolbar>
         <Box sx={{ flexGrow: 1 }} />
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button color="inherit" component={Link} to="/">
+          <Button
+            color="inherit"
+            component={Link}
+            to="/"
+            onClick={() => setShowComponent("home")}
+          >
             Home
           </Button>
           <Button color="inherit" component={Link} to="/book-now">

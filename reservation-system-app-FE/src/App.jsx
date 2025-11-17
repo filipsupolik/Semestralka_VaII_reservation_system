@@ -13,19 +13,29 @@ function App() {
   const [showComponent, setShowComponent] = useState("home");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isOwner, setIsOwner] = useState(false);
-  const onLogin = (e, userName, password, isOwner) => {
-    requestAuth("POST", "/login", { userName, password, isOwner })
+
+  const onLogin = (e, form) => {
+    // form: { email, password }
+    const { email, password } = form || {};
+    // ensure login page is shown while logging in
+    setShowComponent("login");
+    return requestAuth("POST", "/login", { email, password })
       .then((response) => {
-        setShowComponent("showServices");
+        // response should include isOwner flag when available
+        const owner = response?.data?.isOwner || false;
+        setIsOwner(owner);
         setIsAuthenticated(true);
+        setShowComponent("showServices");
       })
       .catch((error) => {
         setShowComponent("login");
       });
   };
 
-  const onRegister = (e, firstName, lastName, email, password, isOwner) => {
-    requestAuth("POST", "/register", {
+  const onRegister = (e, form) => {
+    // form: { firstName, lastName, email, password, isOwner }
+    const { firstName, lastName, email, password, isOwner } = form || {};
+    return requestAuth("POST", "/register", {
       firstName,
       lastName,
       email,
@@ -33,11 +43,13 @@ function App() {
       isOwner,
     })
       .then((response) => {
+        // after register, show services or login depending on your flow
+        setIsOwner(!!isOwner);
         setShowComponent("showServices");
-        setIsOwner(isOwner);
       })
       .catch((error) => {
-        setShowComponent("login");
+        // on error, stay or show login
+        setShowComponent("register");
       });
   };
 
@@ -61,7 +73,13 @@ function App() {
       />
       <Route
         path="/register"
-        element={<RegisterPage onRegister={onRegister} />}
+        element={
+          <RegisterPage
+            onRegister={onRegister}
+            setShowComponent={setShowComponent}
+            themeOptions={themeOptions}
+          />
+        }
       />
       <Route
         path="/book-now"
