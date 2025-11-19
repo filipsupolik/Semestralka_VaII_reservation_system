@@ -26,6 +26,7 @@ function App() {
         setIsOwner(owner);
         setIsAuthenticated(true);
         setShowComponent("showServices");
+        return response;
       })
       .catch((error) => {
         setShowComponent("login");
@@ -46,6 +47,7 @@ function App() {
         // after register, show services or login depending on your flow
         setIsOwner(!!isOwner);
         setShowComponent("showServices");
+        return response;
       })
       .catch((error) => {
         // on error, stay or show login

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import { requestAuth } from "../../api/authService";
 
 export default function LoginPageForm({
   onLogin,
@@ -9,6 +11,7 @@ export default function LoginPageForm({
 }) {
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const validate = () => {
@@ -33,12 +36,37 @@ export default function LoginPageForm({
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      if (onLogin) {
-        onLogin(e, form);
+    if (!validate()) return;
+
+    try {
+      // call backend login endpoint
+      const resp = onLogin
+        ? // if parent provided onLogin we can call it and await result
+          await onLogin(e, form)
+        : await requestAuth("POST", "/login", {
+            email: form.email,
+            password: form.password,
+          });
+
+      // try to extract token from response
+      const token = resp?.data?.token || resp?.data?.accessToken || resp?.token;
+      if (token) {
+        login(token);
       }
+
+      // update parent view state if available
+      if (setShowComponent) setShowComponent("showServices");
+      // navigate to book-now (or to a protected area)
+      try {
+        navigate("/book-now");
+      } catch (navErr) {
+        // ignore
+      }
+    } catch (err) {
+      const msg = err?.response?.data?.message || err?.message || "Prihlásenie zlyhalo";
+      setErrors((prev) => ({ ...prev, server: msg }));
     }
   };
 
@@ -62,6 +90,11 @@ export default function LoginPageForm({
           Prihlásenie
         </Typography>
         <form onSubmit={handleSubmit} noValidate>
+          {errors.server && (
+            <Typography color="error" mb={2}>
+              {errors.server}
+            </Typography>
+          )}
           <TextField
             label="Email"
             name="email"
